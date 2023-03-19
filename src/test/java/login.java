@@ -28,6 +28,24 @@ public class login {
                 .then().assertThat().statusCode(200);
     }
     @Test
+    public void invalidMaillogin_checkStatusCode_expectHttp400() {
+
+        given().auth()
+                .basic("m@foodics.co", "123456").spec(requestSpecification)
+                .when()
+                .get("login")
+                .then().assertThat().statusCode(200);
+    }
+    @Test
+    public void invalidPasslogin_checkStatusCode_expectHttp400() {
+
+        given().auth()
+                .basic("merchant@foodics.com", "1234").spec(requestSpecification)
+                .when()
+                .get("login")
+                .then().assertThat().statusCode(400);
+    }
+    @Test
     public void whoami_checkStatusCode_expectHttp200() {
 
         given().auth()
@@ -35,6 +53,24 @@ public class login {
                 .when()
                 .get("whoami")
                 .then().assertThat().statusCode(200);
+    }
+    @Test
+    public void invalidPassHhoami_checkStatusCode_expectHttp400() {
+
+        given().auth()
+                .basic("merchant@fo", "123456").spec(requestSpecification)
+                .when()
+                .get("whoami")
+                .then().assertThat().statusCode(400);
+    }
+
+    public void invalidMailWhhoami_checkStatusCode_expectHttp400() {
+
+        given().auth()
+                .basic("merchant@foodics.com", "123").spec(requestSpecification)
+                .when()
+                .get("whoami")
+                .then().assertThat().statusCode(400);
     }
 }
 
